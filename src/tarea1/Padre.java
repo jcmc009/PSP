@@ -5,8 +5,13 @@
 package tarea1;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 
 /**
  *
@@ -40,39 +45,49 @@ public class Padre {
             int exitCode = proceso.waitFor();
     
             System.out.println("El proceso hijo ha terminado con codigo de salida: " + exitCode);
+             */
 
+        } catch (IOException e) {
+            e.printStackTrace();
 
-        } catch (IOException | InterruptedException e) {
+        }
+        /*  String rutaClase = System.getProperty("java.class.path");
+            File directorio = new File(rutaClase);
+            ProcessBuilder pb1 = new ProcessBuilder("javac", "Hijo.java");
+            pb1.directory(directorio);
+            Process p1 = pb1.start();
+            try {
+                p1.waitFor();
+            } catch (InterruptedException ex) {
+                ex.getMessage();
+            }
+            try {
+                OutputStream os = p1.getOutputStream();
+                os.write("Hola Mario\n".getBytes());
+                os.flush();
+
+                InputStream is = p1.getInputStream();
+                int c;
+                while ((c = is.read()) != -1) {
+                    System.out.print((char) c);
+                }
+                is.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            int exitVal;
+            try {
+                //El proceso actual espera hasta que el subproceso Process finalice
+                exitVal = p1.waitFor(); //Recoge la salida de System.exit()
+                System.out.println("Valor de salida " + exitVal);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
             e.printStackTrace();
 
         }*/
-            // Método principal que inicia el proceso
-
-            llamarOtroMetodo();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
-    // Método que utiliza ProcessBuilder para llamar a otro método
-
-    public static void llamarOtroMetodo() throws IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("java", "-cp", ".", "Hola");
-        Process proceso = processBuilder.start();
-    }
-
-    private static String read(Process proceso) throws IOException {
-        StringBuilder builder = new StringBuilder();
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(proceso.getInputStream()))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                builder.append(line).append(System.lineSeparator());
-            }
-        } catch (IOException e) {
-            System.out.println("Error al leer la salida del proceso hijo: " + e.getMessage());
-        }
-
-        return builder.toString();
-    }
-
 }
