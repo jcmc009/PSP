@@ -11,9 +11,8 @@ package tarea1;
 public class Hijo {
 
     public static void main(String[] args) {
-   
+
         System.out.println("Vaaaaale");
- 
     }
 
 }
