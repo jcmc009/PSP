@@ -27,18 +27,19 @@ public class Padre {
         // Leer desde la entrada estándar (lo que viene por la tubería)
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         // Almacenamos el texto en un String
-        String mensajeMadre = "", mensajeEnviar = "", respuestaPadre = "(Despertando a Mario)";
+        String mensajeMadre = "", mensajeEnviar = "", respuestaPadre = "";
+
         String rutaClase = System.getProperty("java.class.path");
         try {
             mensajeMadre = reader.readLine();
         } catch (IOException ex) {
-            Logger.getLogger(Padre.class.getName()).log(Level.SEVERE, null, ex);
+            ex.getMessage();
         }
 
         if (mensajeMadre != null && mensajeMadre.contains("Mario")) {
-
-            mensajeEnviar = mensajeMadre + "\n" + respuestaPadre;
-            //System.out.println(mensajeEnviar);
+            respuestaPadre = "\n" + "(Despertando a Mario)";
+            mensajeEnviar = mensajeMadre + respuestaPadre;
+            //System.out.println("Prueba " + mensajeEnviar);
         } else {
             System.out.println("Mensaje no reconocido");
         }
@@ -47,7 +48,7 @@ public class Padre {
             //puede dar fallo por no encontrar fichero
             programa.directory(new File(rutaClase));
             Process iniciar = programa.start();
-            System.out.println("Programa funciona");
+            // System.out.println("Programa funciona");
             enviarMensaje(iniciar, mensajeEnviar);
             recibirMensaje(iniciar);
         } catch (Exception e) {
@@ -57,14 +58,11 @@ public class Padre {
     }
 
     private static void enviarMensaje(Process iniciar, String mensajeAenviar) {
-        OutputStream ot = iniciar.getOutputStream();
-        OutputStreamWriter otw = new OutputStreamWriter(ot);
-        BufferedWriter escribir = new BufferedWriter(otw);
-        try {
+        try (
+                BufferedWriter escribir = new BufferedWriter(new OutputStreamWriter(iniciar.getOutputStream()))) {
             escribir.write(mensajeAenviar);
-            escribir.newLine();
-            escribir.flush();
-            escribir.close();
+            escribir.newLine(); // Esto añade un salto de línea final para que el hijo sepa que terminó el mensaje
+            escribir.flush();   // Asegura que el mensaje se envíe
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,7 +80,9 @@ public class Padre {
                 linea = leer.readLine();
 
             }
+            leer.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -15,24 +15,23 @@ public class Hijo {
 
     public static void main(String[] args) {
 
-        String mensajeRecibido = "";
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
-        try {
-            mensajeRecibido = br.readLine();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
-            if (br != null) {
-                br.close();
+        // Usamos StringBuilder para acumular múltiples líneas del mensaje recibido
+        StringBuilder mensajeRecibido = new StringBuilder();
 
+        // Creamos el BufferedReader para leer desde la entrada estándar
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            String linea;
+
+            // Leemos línea por línea hasta que se recibe una línea vacía o fin de flujo
+            while ((linea = br.readLine()) != null && !linea.isEmpty()) {
+                mensajeRecibido.append(linea).append("\n");
             }
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error al leer el mensaje: " + e.getMessage());
         }
-        System.out.println(mensajeRecibido + "\nVaaaaale");
 
+        // Mostramos el mensaje completo recibido seguido de una respuesta
+        System.out.println(mensajeRecibido.toString() + "Vaaaaale");
     }
-
 }
