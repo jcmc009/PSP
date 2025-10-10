@@ -6,7 +6,7 @@ package tarea1;
 
 /**
  *
-* @author José Carlos Manjón Carrasco
+ * @author José Carlos Manjón Carrasco
  */
 public class Madre {
 
@@ -14,18 +14,6 @@ public class Madre {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*    String rutaClase = System.getProperty("java.class.path");
-        System.out.println("Madre: Dile a Mario que haga los deberes");
-        //System.out.println(rutaClase);
-        try {
-            // TODO code application logic here
-
-            Process nuevoProcess = new ProcessBuilder("java", "-cp", rutaClase, "tarea1.Padre").inheritIO().start();
-
-        } catch (Exception e) {
-            System.out.println("Error");
-        }
-         */
 
         System.out.println("Madre: Dile a Mario que haga los deberes");
 

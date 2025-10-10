@@ -22,37 +22,36 @@ import java.util.logging.Logger;
 public class Padre {
 
     public static void main(String[] args) {
-        //try {
-
         // Leer desde la entrada estándar (lo que viene por la tubería)
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         // Almacenamos el texto en un String
         String mensajeMadre = "", mensajeEnviar = "", respuestaPadre = "";
-
         String rutaClase = System.getProperty("java.class.path");
+        //recibe el mensaje proveniente de Madre.java
         try {
             mensajeMadre = reader.readLine();
         } catch (IOException ex) {
             ex.getMessage();
         }
-
+        /*para que se inicie el proceso, el mensaje debe ser distinto de nulo y que contenga la palabra Mario 
+        asegurarnos que se envía el mensaje al sitio correcto, en caso contrario se devuelve un mensaje y no se inicia nada*/
         if (mensajeMadre != null && mensajeMadre.contains("Mario")) {
             respuestaPadre = "\n" + "(Despertando a Mario)";
             mensajeEnviar = mensajeMadre + respuestaPadre;
-            //System.out.println("Prueba " + mensajeEnviar);
+
+            try {
+                ProcessBuilder programa = new ProcessBuilder("java", "Hijo.java");
+                //puede dar fallo por no encontrar fichero
+                programa.directory(new File(rutaClase));
+                Process iniciar = programa.start();
+                // System.out.println("Programa funciona");
+                enviarMensaje(iniciar, mensajeEnviar);
+                recibirMensaje(iniciar);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         } else {
             System.out.println("Mensaje no reconocido");
-        }
-        try {
-            ProcessBuilder programa = new ProcessBuilder("java", "Hijo.java");
-            //puede dar fallo por no encontrar fichero
-            programa.directory(new File(rutaClase));
-            Process iniciar = programa.start();
-            // System.out.println("Programa funciona");
-            enviarMensaje(iniciar, mensajeEnviar);
-            recibirMensaje(iniciar);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
 
     }
