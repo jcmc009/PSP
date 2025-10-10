@@ -55,7 +55,7 @@ public class Padre {
 
     private static void enviarMensaje(Process iniciar, String mensajeAenviar) {
         try (
-            BufferedWriter escribir = new BufferedWriter(new OutputStreamWriter(iniciar.getOutputStream()))) {
+                BufferedWriter escribir = new BufferedWriter(new OutputStreamWriter(iniciar.getOutputStream()))) {
             escribir.write(mensajeAenviar);
             escribir.newLine(); // Esto añade un salto de línea final para que el hijo sepa que terminó el mensaje
             escribir.flush();   // Asegura que el mensaje se envíe

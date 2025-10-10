@@ -4,11 +4,9 @@
  */
 package tarea2;
 
-import tarea1.*;
-
 /**
  *
- * @author JCMCarra
+ * @author José Carlos Manjón Carrasco
  */
 public class Tarea {
 
@@ -16,7 +14,15 @@ public class Tarea {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        int cestaPescador = 0, cestaGatos = 0;
+        final int VALOR_MAXIMO_CESTA_PESCADOR = 10;
+        final int VALOR_MAXIMO_CESTA_GATOS = 2;
+        Thread hiloG1 = new Thread();
+        Thread hiloG2 = new Thread();
+        Thread hiloG3 = new Thread();
+        Thread hiloPescador = new Thread();
+
     }
-    
+
 }
