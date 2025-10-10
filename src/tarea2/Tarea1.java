@@ -13,6 +13,7 @@ public class Tarea1 implements Runnable {
     private int cestaPescador = 0;
     private final int VALOR_MAXIMO_CESTA_PESCADOR = 10;
     private final int VALOR_MAXIMO_CESTA_GATOS = 2;
+    private final int TIEMPO_ESPERA_COMIDA_GATO = 25;
     private final String tipo;
 
     public Tarea1(String tipo) {
@@ -20,10 +21,10 @@ public class Tarea1 implements Runnable {
     }
 
     public static void main(String[] args) {
-        Tarea pescador = new Tarea("pescador");
-        Tarea gatoUno = new Tarea("gato");
-        Tarea gatoDos = new Tarea("gato");
-        Tarea gatoTres = new Tarea("gato");
+        Tarea1 pescador = new Tarea1("pescador");
+        Tarea1 gatoUno = new Tarea1("gato");
+        Tarea1 gatoDos = new Tarea1("gato");
+        Tarea1 gatoTres = new Tarea1("gato");
 
         Thread hiloPescador = new Thread(pescador);
         Thread hiloGatoUno = new Thread(gatoUno);
@@ -43,7 +44,7 @@ public class Tarea1 implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (cestaPescador < VALOR_MAXIMO_CESTA_PESCADOR) {
             try {
                 Thread.sleep(tiempoEsperaAleatoria() * 1000);
             } catch (InterruptedException e) {

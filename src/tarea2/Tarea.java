@@ -18,57 +18,47 @@ public class Tarea implements Runnable {
     private int cestaPescador = 0, cestaGatos = 0;
     private final int VALOR_MAXIMO_CESTA_PESCADOR = 10;
     private final int VALOR_MAXIMO_CESTA_GATOS = 2;
+    private final int TIEMPO_ESPERA_COMIDA_GATO = 25;
+    private final String tipo;
+
+//constructor del tipo, nos permitirá diferenciar entre los gatos y el pescador
+    public Tarea(String tipo) {
+        this.tipo = tipo;
+    }
 
     public static void main(String[] args) {
-        // declaramos los hilos
-
-        Thread gatoUno = new Thread();
-        Thread gatoDos = new Thread();
-        Thread gatoTres = new Thread();
-        Thread pescador = new Thread();
-
-        //los iniciamos
-        gatoUno.start();
-        gatoDos.start();
-        gatoTres.start();
-        pescador.start();
-        //System.out.println(tiempoEsperaAleatoria());
-        tiempoEsperaAleatoria();
-
+        //definimos tipo
+        Tarea pescador = new Tarea("pescador");
+        Tarea gatoUno = new Tarea("gato");
+        Tarea gatoDos = new Tarea("gato");
+        Tarea gatoTres = new Tarea("gato");
+        //se crean los hilos
+        Thread hiloPescador = new Thread(pescador);
+        Thread hiloGatoUno = new Thread(gatoUno);
+        Thread hiloGatoDos = new Thread(gatoDos);
+        Thread hiloGatoTres = new Thread(gatoTres);
+        // se inician los hilos
+        hiloPescador.start();
+        hiloGatoUno.start();
+        hiloGatoDos.start();
+        hiloGatoTres.start();
     }
+//obtenemos el tiempo de espera entre 1 y 5
 
     public static int tiempoEsperaAleatoria() {
         Random random = new Random();
         return random.nextInt(5) + 1; // genera un número entre 1 y 5
     }
 
-    Tarea(String pescador) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void comprobarCestaPescador(int cestaComprobar) {
-        if (cestaComprobar == VALOR_MAXIMO_CESTA_PESCADOR) {
-//esperar
-        } else {
-            cestaPescador++;
+        while (cestaPescador < VALOR_MAXIMO_CESTA_PESCADOR) {
+            try {
+                Thread.sleep(tiempoEsperaAleatoria() * 1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
+        System.out.println("El valor de la cesta es de" + cestaPescador);
     }
-
-    public void comprobarCestaGatos(int cestaComprobar) {
-        if (cestaComprobar == VALOR_MAXIMO_CESTA_GATOS) {
-//esperar
-        } else {
-            cestaGatos++;
-        }
-    }
-
-    public void pescar() {
-        cestaPescador++;
-    }
-
 }
