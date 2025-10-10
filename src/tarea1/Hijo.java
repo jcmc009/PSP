@@ -18,7 +18,7 @@ public class Hijo {
         // Usamos StringBuilder para acumular múltiples líneas del mensaje recibido
         StringBuilder mensajeRecibido = new StringBuilder();
 
-        // Creamos el BufferedReader para leer desde la entrada estándar
+        // Creamos el BufferedReader para leer la entrada
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             String linea;
 
